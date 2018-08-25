@@ -65,7 +65,7 @@ GateSchema 可以用于描述接口的输入或输出，然后使用验证器验
 [
     "required",
     {
-        "keyword": "map"
+        "keyword": "map",
         "args": [
             {
                 "name": ["required", "string"],

@@ -64,7 +64,7 @@ This is an example of Gateschema which expects the Input that satisfy the follow
 [
     "required",
     {
-        "keyword": "map"
+        "keyword": "map",
         "args": [
             {
                 "name": ["required", "string"],
