@@ -1,64 +1,66 @@
-# GateSchema (EN)
+[English]('./README.md')  
 
-**GateSchema** is a specification that **describes data structure and data format**. It specifies a list of keywords and a JSON-based format to define constraints of the data. 
+# GateSchema   
 
-With GateSchema, you may describe the Input/Output data format of the Interfaces, and use a validator to perform data validation.
+**GateSchema** 是一个**描述数据的结构和格式**的规范。它制定 了一系列的关键字，并规定了一种基于 JSON 的格式，用来描述数据的约束。
 
-A GateSchema instance consists of a list of **constraints**, which specify whether the Input is required, the data types and the relationships among these data.
+一个 GateSchema 实例包含一个 **约束(constraint)** 列表，用来表达输入的数据是否必须存在，应有的数据类型等。
 
-We recommend that you use different language implementations to create schema, such as [gateschema-js](http://github.com/gateschema/gateschema-js), which provides simple syntax.
+我们建议使用具体实现去构建 schema，例如 [gateschema-js](http://github.com/gateschema/gateschema-js)，它提供了简便的语法。
 
-## Formation of Constraint
+GateSchema 可以用于描述接口的输入或输出，然后使用验证器验证输入或输出是否满足要求。
 
-The constraint is described by JSON object.
-A constraint contains at least one **keyword** field. It may also contain an optional **msg** field to provide user-defined error message which will show up when the Input does not satisfy the schema. There could also be an optional **args** field if the keyword takes parameter(s). If a constraint has neither an args nor a msg, a keyword string can be used to describe the constraint directly.
 
-Examples of constraint:
+## 约束的构成
 
-- Keyword String
+一个约束是一个 JSON 对象，它至少包含一个 **关键字(keyword)** 字段。它还可以包含一个可选的 **消息(msg)** 字段，用来表示输入不满足该约束时的**自定义错误消息**。当关键字带有参数时，还需要包含 **参数(args)** 字段。如果一个约束不包含 args ，也没有 msg 的时候，可以直接使用 keyword 字符串表示。
+
+
+下面是一些约束的示例：
+
+- Keyword 字符串
+
 ```json
 "required"
 ```
 
-- Keyword only
+- 只包含 keyword 关键字
 ```json 
 {
     "keyword": "required"
 }
 ```
-- Keyword and msg
+- 包含 keyword 和 msg
 ```json 
 {
     "keyword": "required",
     "msg": "This field is required"
 }
 ```
-
-
-- Keyword, msg and arg
+- 包含 keyword、msg 和 args
 ```json 
 {
     "keyword": "list",
     "msg": "This field should be a list of number",
-    "args": {
+    "args": [
         [
             {
                 "keyword": "number"
             }
         ]
-    }
+    ]
 }
 ```
 
-## GateSchema Example
 
-This is an example of Gateschema which expects the Input that satisfy the following conditions:
-- indispensable
-- a map, that include
-	- a required string 'name'
-	- a optional number 'mobile'
-	- a required string 'address' that should not be empty 
-	
+## GateSchema 示例
+
+下面是一个 GateSchema 的例子，它期望的输入必须满足以下条件：
+- 必须存在
+- 数据类型为 map，并且包含
+    * 一个必须存在的、字符串类型的 `name` 字段
+    * 一个可选的、数字类型的`mobile`字段
+    * 一个必须存在的、不可为空的、字符串类型的`address`字段
 ```json 
 [
     "required",
@@ -76,14 +78,13 @@ This is an example of Gateschema which expects the Input that satisfy the follow
 
 ```  
 
-## Preset Keyword
+## 内置 keyword    
 
-A standard implementation in accordance with GateSchema specification should at lease support all the preset keywords.
+一个符合此规范的标准实现至少应该支持所有的内置 keyword。
 
 ### `required`
- 
-The Input should exist. Its value should be neither undefined, nor null.
 
+表示 input 是一个必须存在的值, 且不能为 null。
 
 ```json 
 "required"
@@ -91,23 +92,21 @@ The Input should exist. Its value should be neither undefined, nor null.
 
 ### `optional`
 
-The Input is optional. Its value could be undefined or null.
+表示 input 是一个可选的值。
 
 ```json 
 "optional"
 ```
 
 ### `boolean`
-
-The Input is boolean.
+表示 input 是布尔类型。
 
 ```json 
 "boolean"
 ```
 
 ### `binary`  
-
-The Input is a binary.
+表示 input 是一个二进制数。
 
 ```json 
 "binary"
@@ -115,7 +114,7 @@ The Input is a binary.
 
 ### `number`   
 
-The Input is a number.
+表示 input 是数字类型。  
 
 ```json 
 "number"
@@ -123,7 +122,7 @@ The Input is a number.
 
 ### `string`  
 
-The Input is a string.
+表示 input 是字符串类型。
 
 ```json 
 "string"
@@ -131,7 +130,7 @@ The Input is a string.
 
 ### `any`
 
-The Input accepts any data type.
+表示 input 可以是任意类型的值。
 
 ```json 
 "any"
@@ -139,7 +138,7 @@ The Input accepts any data type.
 
 ### `enum(definition: {[label: string]: number})`
 
-The Input value should be one of the predefined values.
+表示 input 是一个枚举类型。
 
 ```json 
 {
@@ -155,7 +154,7 @@ The Input value should be one of the predefined values.
 
 ### `list(schema: GateSchema)`
 
-The Input is a list of values, each of which satisfies the given schema.
+表示 input 是一个数组类型，其每一个元素都必须满足给定的 schema。 
 
 ```json 
 {
@@ -168,7 +167,7 @@ The Input is a list of values, each of which satisfies the given schema.
 
 ### `map(definition: {[key:string]: GateSchema})`
 
-The Input is supposed to be a map with keys and values that satisfy the definition.
+表示 input 是 map 类型。
 
 ```json 
 {
@@ -185,8 +184,7 @@ The Input is supposed to be a map with keys and values that satisfy the definiti
 
 ### `oneOf(schemas: GateSchema[])`
 
-The Input value should satisfy one of the given schemas.
-
+表示 input 满足给定的若干 schema 中的一种。
 
 ```json 
 {
@@ -200,7 +198,7 @@ The Input value should satisfy one of the given schemas.
 
 ### `value(value: any)`
 
-The Input value should equal to the specified value.
+表示 input 是一个具体值。
 
 ```json 
 {
@@ -213,9 +211,9 @@ The Input value should equal to the specified value.
 
 ### `switch(path: string, cases: {case?: GateSchema, schema: GateSchema}[])`
 
-Expect the Input value to satisfy a schema which depends on the value at the given path. Simply put, if the value at the given path matches a case(e.g. case A), the Input should satisfy the schema defined in case A.
-If there is no matching case, it will pass the check.
-You may use the keyword 'any' to specify a default case.
+表示 input 需要满足的约束依赖于给定的 path 里的值。也就是说，如果给定的 path 的值符合某个 case，则 input 需要满足该 case 里的 schema 的约束。
+如果没有匹配的 case，则无需满足任何约束。
+此外，可以使用 any 关键字来表示默认 case。
 
 ```json 
 {
@@ -240,10 +238,8 @@ You may use the keyword 'any' to specify a default case.
 
 ### `equal(path: string)`
 
-Expect the Input value to be equal to the value at the given path.
+表示 input 值与给定路径里的值相等。
 
-
-- 例子
 ```json 
 {
     "keyword": "equal",
@@ -255,7 +251,9 @@ Expect the Input value to be equal to the value at the given path.
 
 ### `format(type: "date" | "date-time" | "hostname" | "uri" | "url" | "email" | "ipv4" | "ipv6")` 
 
-Expect the Input value to be in the specified format (including "date", "date-time", "hostname", "uri", "url", "email", "ipv4", "ipv6").
+表示 input 值必须符合给定的格式（包括 "date"，"date-time"，"hostname"，"uri"，"url"，"email"，"ipv4"，"ipv6"）
+
+- 举例如下：
 
 * date: see full-date in https://tools.ietf.org/html/rfc3339#section-5.6, examples:  
   * 1990-12-31  
@@ -291,7 +289,6 @@ Expect the Input value to be in the specified format (including "date", "date-ti
   * 2001:db8:0:0:0:ff00:42:5678
   * 2001:db8::ff00:42:8765
 
-
 ```json 
 {
     "keyword": "format",
@@ -303,12 +300,7 @@ Expect the Input value to be in the specified format (including "date", "date-ti
 
 ### `length(range: number | [number] | [undefined, number] | [number, undefined] | [number, number])`
 
-
-The length of the Input should accord with the specified `range`. 
-`range` can be a fixed `number` or an array `[min?: number, max?: number]` which specifies the range of the length.
-If the Input value is a `string`, the `range` refers to the number of characters. 
-If the Input value is a `list`, the `range` refers to the number of elements. 
-If the Input value is a `binary`, the `range` refers to the number of bytes. 
+表示 input 的长度信息，它带有一个 range 参数。range 既可以是数字，用来表示一个固定的长度，也可以是数组，用来表示允许的长度范围。
 
 ```json 
 {
@@ -321,7 +313,7 @@ If the Input value is a `binary`, the `range` refers to the number of bytes.
 
 ### `not(schema: GateSchema)`  
 
-This keyword is used to exclude the specific schema which the Input is not supposed to satisfy.
+表示 input 不可以是给定的 schema 的样式。
 
 ```json 
 {
@@ -333,7 +325,8 @@ This keyword is used to exclude the specific schema which the Input is not suppo
 ```
 
 ### `notEmpty`
-The Input should not be empty. It could neither be 0, '', `list` without elements nor `map` without any key.
+
+表示 input 不可以是 0，空的 string，空的 list，或者是没有任何键值的 map。
 
 ```json 
 {
@@ -343,7 +336,7 @@ The Input should not be empty. It could neither be 0, '', `list` without element
 
 ### `pattern(regex: string | RegExp, flags?: string)`
 
-The Input should satisfy a regular expression.
+表示 input 必须满足一个正则表达式。
 
 ```json 
 {
@@ -357,7 +350,7 @@ The Input should satisfy a regular expression.
 
 ### `unique`
 
-Expect each element in the `list` is unique.
+表示 list 中的每个元素都必须是独一无二的，不可以有重复的项。
 
 ```json  
 "unique"
@@ -365,7 +358,7 @@ Expect each element in the `list` is unique.
 
 ### `other(...args: any[])`
 
-This keyword is used to store additional information for other purposes, such as generating data and UI rendering.
+通过这个 other 关键字，用户可以储存一些额外的信息，如生成数据、生成表单等。  
 
 ```json  
 {
@@ -378,3 +371,6 @@ This keyword is used to store additional information for other purposes, such as
     ]
 }
 ```
+
+ 
+ 
