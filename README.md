@@ -319,6 +319,15 @@ If the Input value is a `binary`, the `range` refers to the number of bytes.
 }
 ```
 
+#### `max(value: number, isExclusive?: boolean)`  
+Expect the input to be less than or equal to the passing value  
+If `isExclusive` is `true`, then expect the input to be less than the passing value  
+
+#### `min(value: number, isExclusive?: boolean)`  
+Expect the input to be greater than or equal to the passing value   
+if `isExclusive` is `true`, then expect the input to be greater than the passing value   
+
+
 ### `not(schema: GateSchema)`  
 
 This keyword is used to exclude the specific schema which the Input is not supposed to satisfy.

@@ -311,6 +311,13 @@ GateSchema 可以用于描述接口的输入或输出，然后使用验证器验
 }
 ```
 
+#### `max(value: number, isExclusive?: boolean)`  
+表示 input 应小于等于传入的值。如果 `isExclusive` 为 `true`, 则 input 应小于传入的值。
+
+#### `min(value: number, isExclusive?: boolean)`
+
+表示 input 应大于等于传入的值。如果 `isExclusive` 为 `true`, 则 input 应大于传入的值。
+
 ### `not(schema: GateSchema)`  
 
 表示 input 不可以是给定的 schema 的样式。
