@@ -54,11 +54,11 @@ Examples of constraint:
 ## GateSchema Example
 
 This is an example of Gateschema which expects the Input that satisfy the following conditions:
-- indispensable
-- a map, that include
-	- a required string 'name'
-	- a optional number 'mobile'
-	- a required string 'address' that should not be empty 
+- required
+- a map, that has
+	- a 'name' key and its value is a required string
+	- a 'mobile' key and its value is an optional number
+	- an 'address' key and its value is a required string that should not be empty 
 	
 ```json 
 [

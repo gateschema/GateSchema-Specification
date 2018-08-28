@@ -2,11 +2,11 @@
 
 # GateSchema   
 
-**GateSchema** 是一个**描述数据的结构和格式**的规范。它制定 了一系列的关键字，并规定了一种基于 JSON 的格式，用来描述数据的约束。
+**GateSchema** 是一个**描述数据的结构和格式**的规范。它制定了一系列的关键字，并规定了一种基于 JSON 的格式，用来描述数据的约束。
 
 一个 GateSchema 实例包含一个 **约束(constraint)** 列表，用来表达输入的数据是否必须存在，应有的数据类型等。
 
-我们建议使用具体实现去构建 schema，例如 [gateschema-js](http://github.com/gateschema/gateschema-js)，它提供了简便的语法。
+我们建议使用具体实现去构建 Gateschema，例如 [gateschema-js](http://github.com/gateschema/gateschema-js)，它提供了简便的语法。
 
 GateSchema 可以用于描述接口的输入或输出，然后使用验证器验证输入或输出是否满足要求。
 
@@ -57,10 +57,10 @@ GateSchema 可以用于描述接口的输入或输出，然后使用验证器验
 
 下面是一个 GateSchema 的例子，它期望的输入必须满足以下条件：
 - 必须存在
-- 数据类型为 map，并且包含
-    * 一个必须存在的、字符串类型的 `name` 字段
-    * 一个可选的、数字类型的`mobile`字段
-    * 一个必须存在的、不可为空的、字符串类型的`address`字段
+- 数据类型为 map，并且包含三个键值对：
+    * 键名为 `name`；键值必须存在，string 类型
+    * 键名为 `mobile`；键值是可选的，number 类型
+    * 键名为 `address`；键值必须存在，string 类型，且不可以为空
 ```json 
 [
     "required",
